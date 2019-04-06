@@ -18,12 +18,12 @@ int cur_size = 0;
 int buf_size = 0;
 
 template<typename T>
-void add(T *&fs, T el)
+void add(T *&tel, T digit)
 {
 	if (buf_size == 0)
 	{
 		buf_size = 4;
-		fs = new T[buf_size];
+		tel = new T[buf_size];
 	}
 	else
 	{
@@ -33,13 +33,13 @@ void add(T *&fs, T el)
 			T *tmp = new T[buf_size];
 			for (int i = 0; i < cur_size; i++)
 			{
-				tmp[i] = fs[i];
+				tmp[i] = tel[i];
 			}
-			delete[] fs;
-			fs = tmp;
+			delete[] tel;
+			tel = tmp;
 		}
 	}
-	fs[cur_size++] = el;
+	tel[cur_size++] = digit;
 }
 
 void Task1()
@@ -55,14 +55,15 @@ void Task1()
 	struct Number
 	{
 		int code : 11, n1 : 8, n2 : 8, n3 : 8;
+		
 		void print()
 		{
 			cout << code << " " << n1 << " " << n2 << " " << n3 << endl;
 		}
 	};
 
-	Number el;
-	Number *fs = 0;
+	Number digit;
+	Number *tel = 0;
 	ifstream fin("DataBaseTask1.txt");
 	int tmp;
 
@@ -75,49 +76,52 @@ void Task1()
 		while (!fin.eof())
 		{
 			fin >> tmp;
-			el.code = tmp;
+			digit.code = tmp;
 			fin >> tmp;
-			el.n1 = tmp;
+			digit.n1 = tmp;
 			fin >> tmp;
-			el.n2 = tmp;
+			digit.n2 = tmp;
 			fin >> tmp;
-			el.n3 = tmp;
-			add(fs, el);
+			digit.n3 = tmp;
+			add(tel, digit);
 		}
-		int a = 0;
+		char repeat = 'y';
 		do
 		{
-			cout << "Menu:\n1 - All list\n2 - Add new\n";
+			cout << "Выбор действия: \n (1) - Весь список \n (2) - Добавить новый телефон \n";
+			cout << "\n -> ";
+			
 			int choose;
 			cin >> choose;
+
 			switch (choose)
 			{
 			case 1:
 			{
 				for (int i = 0; i < cur_size; i++)
 				{
-					fs[i].print();
+					tel[i].print();
 				}
 				break;
 			}
 			case 2:
 			{
-				cout << "Write the number: code and three two-digit numbers: ";
+				cout << "Введите телефонный номер - код города и три двузначных числа \n -> ";
 				cin >> tmp;
-				el.code = tmp;
+				digit.code = tmp;
 				cin >> tmp;
-				el.n1 = tmp;
+				digit.n1 = tmp;
 				cin >> tmp;
-				el.n2 = tmp;
+				digit.n2 = tmp;
 				cin >> tmp;
-				el.n3 = tmp;
-				add(fs, el);
+				digit.n3 = tmp;
+				add(tel, digit);
 				break;
 			}
 			}
-			cout << "Do you want to open menu? 1/0: ";
-			cin >> a;
-		} while (a == 1);
+			cout << "Вы хотите вернуться в меню выбора действия? y/n -> ";
+			cin >> repeat;
+		} while (repeat == 'y');
 	}
 }
 
@@ -140,8 +144,8 @@ void Task2()
 		char name[15];
 		char patronymic[20];
 		
-		int grade1 : 5, grade2 : 4, grade3 : 5, grade4 : 5, grade5 : 4;
-		int grade6 : 4, grade7 : 5, grade8 : 4, grade9 : 4, grade10 : 5;
+		int grade1 : 5, grade2 : 5, grade3 : 5, grade4 : 5, grade5 : 5;
+		int grade6 : 5, grade7 : 5, grade8 : 5, grade9 : 5, grade10 : 5;
 		
 		void print()
 		{
